@@ -7,7 +7,6 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//@RequiredArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
@@ -21,6 +20,7 @@ public class Person {
     @Column(name = "creation_date")
     private LocalDate creationDate;
     private String password;
+    @Column(length = 10)
     private String passport;
     private String address;
     private String mobile;

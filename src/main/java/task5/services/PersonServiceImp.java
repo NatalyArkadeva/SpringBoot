@@ -1,7 +1,6 @@
 package task5.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import task5.person.Person;
 import task5.repository.PersonRepository;
@@ -36,10 +35,7 @@ public class PersonServiceImp implements PersonService{
 
     @Override
     public Person getPersonByNameAndAge(String name, int age) {
-        return personRepository.findByAge(age)
-                .stream()
-                .filter(person -> person.getName().equals(name))
-                .findAny().get();
+        return personRepository.findByNameAndAge(name,age);
     }
 
     @Override
