@@ -1,13 +1,13 @@
 package task5.person;
 
 import lombok.*;
-
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Data
-@Getter
-@Setter
 @NoArgsConstructor
+@AllArgsConstructor
+//@RequiredArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
@@ -15,16 +15,14 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
-    @Column(name = "year")
     private int age;
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
+    private String surname;
+    private String patronymic;
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
+    private String password;
+    private String passport;
+    private String address;
+    private String mobile;
 }
 

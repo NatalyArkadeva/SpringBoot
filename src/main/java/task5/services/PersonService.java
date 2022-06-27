@@ -2,7 +2,7 @@ package task5.services;
 
 import task5.person.Person;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface PersonService {
     Person getPersonByName(String name);
@@ -12,4 +12,8 @@ public interface PersonService {
     void deletePersonById(int id);
 
     Person save(Person person);
+
+    Person getPersonByNameAndAge(String name, int age);
+
+    List<Person> getAllPersonByAge(int age);
 }
