@@ -5,12 +5,9 @@ import org.springframework.stereotype.Service;
 import task5.person.Person;
 import task5.repository.PersonRepository;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
-public class PersonServiceImp implements PersonService{
-
+public class PersonServiceImp implements PersonService {
     private final PersonRepository personRepository;
 
     @Override

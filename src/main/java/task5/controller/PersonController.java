@@ -3,15 +3,12 @@ package task5.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import task5.person.Person;
-import task5.person.SearchPerson;
 import task5.services.PersonService;
-
-import java.util.*;
 
 @RestController
 @RequiredArgsConstructor
 public class PersonController {
-//    private List<Person> persons = new ArrayList<>();
+    //    private List<Person> persons = new ArrayList<>();
 //    {
 //        persons.add(new Person("john", 20));
 //        persons.add(new Person("joanna", 24));
@@ -57,18 +54,19 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping("/name/{name}")
-    public Person getPerson(@PathVariable String name){
+    public Person getPerson(@PathVariable String name) {
         return personService.getPersonByName(name);
     }
 
     @PutMapping("/name/{id}")
-    public Person replacePersonAge(@PathVariable Integer id, @RequestParam int age){
-        personService.getPersonById(id).setAge(age);
-        return  personService.save(personService.getPersonById(id));
+    public Person replacePersonAge(@PathVariable Integer id, @RequestParam int age) {
+        Person updPerson = personService.getPersonById(id);
+        updPerson.setAge(age);
+        return personService.save(updPerson);
     }
 
     @DeleteMapping("/name/{id}")
-    public void deletePerson(@PathVariable int id){
+    public void deletePerson(@PathVariable int id) {
         personService.deletePersonById(id);
     }
 }
