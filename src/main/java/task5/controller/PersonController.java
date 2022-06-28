@@ -2,6 +2,8 @@ package task5.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import task5.converter.PersonConverter;
+import task5.dto.PersonDto;
 import task5.person.Person;
 import task5.services.PersonService;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonController {
     private final PersonService personService;
+    private final PersonConverter personConverter;
 
     @GetMapping("/name/{name}")
     public Person getPerson(@PathVariable String name) {
@@ -43,5 +46,9 @@ public class PersonController {
         return personService.save(person);
     }
 
-
+    @GetMapping("/person/age/{age}")
+    public List<PersonDto> getAllPersonWhereAgeOver(@PathVariable int age) {
+        List<Person> personList = personService.getAllPersonWhereAgeOverSomeAge(age);
+        return personConverter.entityToDto(personList);
+    }
 }

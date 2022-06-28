@@ -16,4 +16,6 @@ public interface PersonService {
     Person getPersonByNameAndAge(String name, int age);
 
     List<Person> getAllPersonByAge(int age);
+
+    List<Person> getAllPersonWhereAgeOverSomeAge(int age);
 }

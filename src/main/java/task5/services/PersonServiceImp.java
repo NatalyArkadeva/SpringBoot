@@ -42,4 +42,9 @@ public class PersonServiceImp implements PersonService{
     public List<Person> getAllPersonByAge(int age) {
         return personRepository.findByAge(age);
     }
+
+    @Override
+    public List<Person> getAllPersonWhereAgeOverSomeAge(int age) {
+        return personRepository.findAllByAge(age);
+    }
 }
