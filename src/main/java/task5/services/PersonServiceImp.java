@@ -6,6 +6,7 @@ import task5.exception.ExceptionMessage;
 import task5.exception.PersonException;
 import task5.person.Person;
 import task5.repository.PersonRepository;
+import task5.util.Util;
 
 import java.util.List;
 
@@ -14,12 +15,11 @@ import java.util.List;
 public class PersonServiceImp implements PersonService {
 
     private final PersonRepository personRepository;
+    private final Util util;
 
     @Override
     public Person getPersonByName(String name) {
-        if (!name.matches("[a-zA-Z]*")) {
-            throw new PersonException(ExceptionMessage.INCORRECT_DATA);
-        }
+        util.throwExceptionIfNameIncorrect(name);
         return personRepository.findByName(name).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
     }
 
@@ -42,9 +42,7 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public Person getPersonByNameAndAge(String name, int age) {
-        if (!name.matches("[a-zA-Z]*")) {
-            throw new PersonException(ExceptionMessage.INCORRECT_DATA);
-        }
+        util.throwExceptionIfNameIncorrect(name);
         return personRepository.findByNameAndAge(name, age).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
     }
 
