@@ -6,20 +6,20 @@ import org.springframework.stereotype.Repository;
 import task5.person.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
-    Person findByName(String name);
+    Optional<Person> findByName(String name);
 
-    Person findById(int id);
+    Optional<Person> findById(int id);
 
     Person save(Person person);
 
     List<Person> findByAge(int age);
 
-    @Query(value = " select p from Person p where p.name like :name and p.age = :age")
-    Person findByNameAndAge(String name, int age);
+    Optional<Person> findByNameAndAge(String name, int age);
 
     @Query(value = " select p from Person p where p.age > :age")
     List<Person> findAllByAge(int age);
