@@ -42,7 +42,7 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public Person addNewPerson(@RequestBody Person person){
+    public Person addNewPerson(@RequestBody Person person) {
         return personService.save(person);
     }
 
@@ -51,4 +51,10 @@ public class PersonController {
         List<Person> personList = personService.getAllPersonWhereAgeOverSomeAge(age);
         return personConverter.entityToDto(personList);
     }
+
+    @PostMapping("/persons")
+    public List<Person> addAllNewPerson(@RequestBody List<Person> person) {
+        return personService.saveAll(person);
+    }
+
 }

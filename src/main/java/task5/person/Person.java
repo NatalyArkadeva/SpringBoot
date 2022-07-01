@@ -1,12 +1,11 @@
 package task5.person;
 
-import lombok.*;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "person")
 public class Person {
@@ -20,9 +19,24 @@ public class Person {
     @Column(name = "creation_date")
     private LocalDate creationDate;
     private String password;
-    @Column(length = 10)
-    private String passport;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "passport_id")
+    private Passport passport;
     private String address;
     private String mobile;
+
+    public Person() {
+    }
+
+    public Person(String name, int age, String surname, String patronymic, LocalDate creationDate, String password, String address, String mobile) {
+        this.name = name;
+        this.age = age;
+        this.surname = surname;
+        this.patronymic = patronymic;
+        this.creationDate = creationDate;
+        this.password = password;
+        this.address = address;
+        this.mobile = mobile;
+    }
 }
 

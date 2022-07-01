@@ -13,6 +13,8 @@ public interface PersonService {
 
     Person save(Person person);
 
+    List<Person> saveAll(List<Person> personList);
+
     Person getPersonByNameAndAge(String name, int age);
 
     List<Person> getAllPersonByAge(int age);

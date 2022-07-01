@@ -24,4 +24,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     @Query(value = " select p from Person p where p.age > :age")
     List<Person> findAllByAge(int age);
 
+    @Override
+    <S extends Person> List<S> saveAll(Iterable<S> entities);
 }

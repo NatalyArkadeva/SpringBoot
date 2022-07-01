@@ -41,6 +41,11 @@ public class PersonServiceImp implements PersonService {
     }
 
     @Override
+    public List<Person> saveAll(List<Person> personList) {
+        return personRepository.saveAll(personList);
+    }
+
+    @Override
     public Person getPersonByNameAndAge(String name, int age) {
         util.throwExceptionIfNameIncorrect(name);
         return personRepository.findByNameAndAge(name, age).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
