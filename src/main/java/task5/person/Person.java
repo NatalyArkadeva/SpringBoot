@@ -24,19 +24,5 @@ public class Person {
     private Passport passport;
     private String address;
     private String mobile;
-
-    public Person() {
-    }
-
-    public Person(String name, int age, String surname, String patronymic, LocalDate creationDate, String password, String address, String mobile) {
-        this.name = name;
-        this.age = age;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.creationDate = creationDate;
-        this.password = password;
-        this.address = address;
-        this.mobile = mobile;
-    }
 }
 

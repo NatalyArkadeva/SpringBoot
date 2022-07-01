@@ -9,4 +9,5 @@ public class PersonDto {
     private int age;
     private String surname;
     private String patronymic;
+    private PassportDto passportDto;
 }

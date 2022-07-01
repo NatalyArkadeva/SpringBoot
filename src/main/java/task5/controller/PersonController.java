@@ -20,6 +20,11 @@ public class PersonController {
         return personService.getPersonByName(name);
     }
 
+    @GetMapping("/name_dto/{name}")
+    public PersonDto getPersonDto(@PathVariable String name) {
+        return personConverter.entityToDto(personService.getPersonByName(name));
+    }
+
     @PutMapping("/name/{id}")
     public Person replacePersonAge(@PathVariable Integer id, @RequestParam int age) {
         personService.getPersonById(id).setAge(age);

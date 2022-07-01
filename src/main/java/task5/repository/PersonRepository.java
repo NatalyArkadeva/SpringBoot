@@ -13,17 +13,10 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
 
     Optional<Person> findByName(String name);
 
-    Optional<Person> findById(int id);
-
-    Person save(Person person);
-
     List<Person> findByAge(int age);
 
     Optional<Person> findByNameAndAge(String name, int age);
 
     @Query(value = " select p from Person p where p.age > :age")
     List<Person> findAllByAge(int age);
-
-    @Override
-    <S extends Person> List<S> saveAll(Iterable<S> entities);
 }
