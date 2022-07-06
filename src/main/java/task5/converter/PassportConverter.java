@@ -2,7 +2,7 @@ package task5.converter;
 
 import org.springframework.stereotype.Component;
 import task5.dto.PassportDto;
-import task5.person.Passport;
+import task5.entity.Passport;
 
 import java.util.List;
 import java.util.stream.Collectors;

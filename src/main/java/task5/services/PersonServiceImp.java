@@ -3,8 +3,8 @@ package task5.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import task5.exception.ExceptionMessage;
-import task5.exception.PersonException;
-import task5.person.Person;
+import task5.exception.EntityException;
+import task5.entity.Person;
 import task5.repository.PersonRepository;
 import task5.util.Util;
 
@@ -20,23 +20,22 @@ public class PersonServiceImp implements PersonService {
     @Override
     public Person getPersonByName(String name) {
         util.throwExceptionIfNameIncorrect(name);
-        return personRepository.findByName(name).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
+        return personRepository.findByName(name).orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
     }
 
     @Override
     public Person getPersonById(int id) {
-        return personRepository.findById(id).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
+        return personRepository.findById(id).orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
     }
 
     @Override
     public void deletePersonById(int id) {
-        personRepository.findById(id).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
+        personRepository.findById(id).orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
         personRepository.deleteById(id);
     }
 
     @Override
     public Person save(Person person) {
-
         return personRepository.save(person);
     }
 
@@ -48,7 +47,7 @@ public class PersonServiceImp implements PersonService {
     @Override
     public Person getPersonByNameAndAge(String name, int age) {
         util.throwExceptionIfNameIncorrect(name);
-        return personRepository.findByNameAndAge(name, age).orElseThrow(() -> new PersonException(ExceptionMessage.NOT_FOUND));
+        return personRepository.findByNameAndAge(name, age).orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
     }
 
     @Override

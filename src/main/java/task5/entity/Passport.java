@@ -1,4 +1,4 @@
-package task5.person;
+package task5.entity;
 
 import lombok.Data;
 
@@ -16,15 +16,4 @@ public class Passport {
     private String number;
     @Column(name = "date_of_issue")
     private LocalDate dateOfIssue;
-//    @OneToOne(mappedBy = "passport")
-//    private Person person;
-
-//    public Passport() {
-//    }
-//
-//    public Passport(String series, String number, LocalDate dateOfIssue) {
-//        this.series = series;
-//        this.number = number;
-//        this.dateOfIssue = dateOfIssue;
-//    }
 }

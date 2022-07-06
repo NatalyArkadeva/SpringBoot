@@ -3,8 +3,8 @@ package task5.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import task5.converter.PersonConverter;
-import task5.dto.PersonDto;
-import task5.person.Person;
+import task5.dto.RequestPersonDto;
+import task5.entity.Person;
 import task5.services.PersonService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class PersonController {
     }
 
     @GetMapping("/name_dto/{name}")
-    public PersonDto getPersonDto(@PathVariable String name) {
+    public RequestPersonDto getPersonDto(@PathVariable String name) {
         return personConverter.entityToDto(personService.getPersonByName(name));
     }
 
@@ -52,7 +52,7 @@ public class PersonController {
     }
 
     @GetMapping("/person/age/{age}")
-    public List<PersonDto> getAllPersonWhereAgeOver(@PathVariable int age) {
+    public List<RequestPersonDto> getAllPersonWhereAgeOver(@PathVariable int age) {
         List<Person> personList = personService.getAllPersonWhereAgeOverSomeAge(age);
         return personConverter.entityToDto(personList);
     }
@@ -61,5 +61,4 @@ public class PersonController {
     public List<Person> addAllNewPerson(@RequestBody List<Person> person) {
         return personService.saveAll(person);
     }
-
 }

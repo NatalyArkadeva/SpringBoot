@@ -1,5 +1,6 @@
-package task5.person;
+package task5.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,5 +25,8 @@ public class Person {
     private Passport passport;
     private String address;
     private String mobile;
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
 }
 

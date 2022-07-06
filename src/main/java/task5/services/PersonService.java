@@ -1,6 +1,6 @@
 package task5.services;
 
-import task5.person.Person;
+import task5.entity.Person;
 
 import java.util.List;
 

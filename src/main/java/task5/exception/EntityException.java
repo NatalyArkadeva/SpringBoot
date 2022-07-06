@@ -1,9 +1,9 @@
 package task5.exception;
 
-public class PersonException extends RuntimeException {
+public class EntityException extends RuntimeException {
     private ExceptionMessage message;
 
-    public PersonException(ExceptionMessage message) {
+    public EntityException(ExceptionMessage message) {
         this.message = message;
     }
 
