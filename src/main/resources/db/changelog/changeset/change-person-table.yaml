@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Nataly
+      changes:
+        - addColumn:
+            tableName: person
+            columns:
+              - column:
+                  name: surname
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patronymic
+                  type: varchar(50)
+              - column:
+                  name: creation_date
+                  type: date
+              - column:
+                  name: password
+                  type: varchar(50)
+              - column:
+                  name: passport
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(200)
+              - column:
+                  name: mobile
+                  type: varchar(12)

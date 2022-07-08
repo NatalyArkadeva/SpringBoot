@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: Nataly
+      changes:
+        - renameColumn:
+            tableName: person
+            newColumnName: passport_id
+            oldColumnName: passport
+        - modifyDataType:
+            columnName: passport_id
+            tableName: person
+            newDataType: int
+        - addForeignKeyConstraint:
+            baseColumnNames: passport_id
+            baseTableName: person
+            constraintName: fk_passport_id
+            referencedColumnNames: id
+            referencedTableName: passport
+
+
+
+
+
+
+
+
+
+
