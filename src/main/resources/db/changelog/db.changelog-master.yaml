@@ -9,3 +9,5 @@ databaseChangeLog:
       file: db/changelog/changeset/change-person-table-add-passport.yaml
   - include:
       file: db/changelog/changeset/create-department-table.yaml
+  - include:
+      file: db/changelog/changeset/change-person-table-age.yaml

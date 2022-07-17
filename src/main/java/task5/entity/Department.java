@@ -1,7 +1,9 @@
 package task5.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +21,14 @@ public class Department {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "department")
     private List<Person> persons;
+
+    public Department() {
+    }
+
+    public Department(String departmentName, List<Person> persons) {
+        this.departmentName = departmentName;
+        this.persons = persons;
+    }
 
     public void addPersonToDepartment(Person person){
         if(persons==null){

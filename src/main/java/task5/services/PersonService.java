@@ -1,7 +1,9 @@
 package task5.services;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import task5.entity.Person;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface PersonService {
@@ -15,9 +17,10 @@ public interface PersonService {
 
     List<Person> saveAll(List<Person> personList);
 
-    Person getPersonByNameAndAge(String name, int age);
+    Person getPersonByNameAndBirthday(String name, LocalDate birthday);
 
     List<Person> getAllPersonByAge(int age);
 
-    List<Person> getAllPersonWhereAgeOverSomeAge(int age);
+    List<Person> getAllPersonOlderSomeAge(int age);
+
 }
