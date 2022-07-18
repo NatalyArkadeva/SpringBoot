@@ -16,4 +16,13 @@ public class Passport {
     private String number;
     @Column(name = "date_of_issue")
     private LocalDate dateOfIssue;
+
+    public Passport() {
+    }
+
+    public Passport(String series, String number, LocalDate dateOfIssue) {
+        this.series = series;
+        this.number = number;
+        this.dateOfIssue = dateOfIssue;
+    }
 }

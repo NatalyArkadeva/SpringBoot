@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: Nataly
+      changes:
+        - addColumn:
+            tableName: person
+            columns:
+              - column:
+                  name: department_id
+                  type: int
+                  constraints:
+                    foreignKey:
+                      referencedColumnNames: id
+                      referencedTableName: department
+                    nullable: false
+
+
+
+

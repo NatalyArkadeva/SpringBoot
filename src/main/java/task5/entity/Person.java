@@ -39,10 +39,12 @@ public class Person {
     public Person() {
     }
 
-    public Person(String name, LocalDate birthday, String surname) {
+    public Person(String name, LocalDate birthday, String surname, Passport passport, Department department) {
         this.name = name;
         this.birthday = birthday;
         this.surname = surname;
+        this.passport = passport;
+        this.department = department;
     }
 }
 
