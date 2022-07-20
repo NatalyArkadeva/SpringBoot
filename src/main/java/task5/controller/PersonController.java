@@ -35,7 +35,7 @@ public class PersonController {
     }
 
     @PutMapping("/name_id/{id}")
-    public Person replacePersonAge(@PathVariable Integer id, @Valid @RequestParam LocalDate birthday) {
+    public Person replacePersonAge(@PathVariable Integer id, @RequestParam LocalDate birthday) {
         personService.getPersonById(id).setBirthday(birthday);
         return personService.save(personService.getPersonById(id));
     }
