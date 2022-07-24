@@ -2,10 +2,12 @@ package task5.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import task5.entity.Person;
 import task5.exception.EntityException;
 import task5.exception.ExceptionMessage;
+import task5.repository.DepartmentRepository;
 import task5.repository.PersonRepository;
 import task5.util.Util;
 
@@ -19,9 +21,11 @@ import java.util.stream.Collectors;
 public class PersonServiceImp implements PersonService {
 
     private final PersonRepository personRepository;
+    private final DepartmentRepository departmentRepository;
     private final Util util;
     private LocalDate now;
 
+    @Transactional
     @Override
     public Person getPersonByName(String name) {
         util.throwExceptionIfNameIncorrect(name);
@@ -35,13 +39,14 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public void deletePersonById(int id) {
-        personRepository.findById(id).orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
+        var person = personRepository.findById(id).orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
+        var department = person.getDepartment();
+        person.deletePersonFromDepartment(department);
         personRepository.deleteById(id);
     }
 
     @Override
     public Person save(Person person) {
-
         return personRepository.save(person);
     }
 
@@ -60,7 +65,7 @@ public class PersonServiceImp implements PersonService {
     public List<Person> getAllPersonByAge(int age) {
         now = LocalDate.now();
         return personRepository.findAll().stream()
-                .filter(person -> person.getBirthday().plusYears(age).isBefore(now)&&
+                .filter(person -> person.getBirthday().plusYears(age).isBefore(now) &&
                         person.getBirthday().plusYears(age).isAfter(now.minusYears(1)))
                 .collect(Collectors.toList());
     }
@@ -71,9 +76,5 @@ public class PersonServiceImp implements PersonService {
         return personRepository.findAll().stream()
                 .filter(person -> person.getBirthday().plusYears(age).isBefore(now))
                 .collect(Collectors.toList());
-    }
-
-    public void deleteAll() {
-        personRepository.deleteAll();
     }
 }

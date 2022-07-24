@@ -28,25 +28,23 @@ public class DepartmentController {
         return ResponseEntity.status(HttpStatus.OK).body("Department " + department.getDepartmentName() + " was successfully added");
     }
 
-    @PutMapping("/department/person/{department}/{personName}/{personSurname}")
-    public ResponseEntity addPersonToDepartment(@PathVariable String department, @PathVariable String personName, @PathVariable String personSurname){
-        Department dep = departmentService.addPersonToDepartment(department,personName,personSurname);
-        departmentService.save(dep);
+    @PutMapping("/department/person/{departmentName}/{personName}/{personSurname}")
+    public ResponseEntity addPersonToDepartment(@PathVariable String departmentName, @PathVariable String personName, @PathVariable String personSurname){
+        departmentService.addPersonToDepartment(departmentName,personName,personSurname);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Person " + personName + " " + personSurname + " was successfully added to department " + department);
+                .body("Person " + personName + " " + personSurname + " was successfully added to department " + departmentName);
     }
 
-    @PutMapping("/department/{department}/{personName}/{personSurname}")
-    public ResponseEntity deletePersonFromDepartment(@PathVariable String department, @PathVariable String personName, @PathVariable String personSurname){
-        Department dep = departmentService.deletePersonFromDepartment(department, personName, personSurname);
-        departmentService.save(dep);
+    @DeleteMapping("/department/{departmentName}/{personName}/{personSurname}")
+    public ResponseEntity deletePersonFromDepartment(@PathVariable String departmentName, @PathVariable String personName, @PathVariable String personSurname){
+        departmentService.deletePersonFromDepartment(departmentName, personName, personSurname);
         return ResponseEntity.status(HttpStatus.OK)
-                .body("Person " + personName + " " + personSurname + " was successfully deleted from department " + department);
+                .body("Person " + personName + " " + personSurname + " was successfully deleted from department " + departmentName);
     }
 
-    @DeleteMapping("/department/{name}")
-    public ResponseEntity deleteDepartment(@PathVariable String name){
-        departmentService.deleteDepartment(name);
-        return ResponseEntity.status(HttpStatus.OK).body("Department " + name + " was successfully deleted");
+    @DeleteMapping("/department/{departmentName}")
+    public ResponseEntity deleteDepartment(@PathVariable String departmentName){
+        departmentService.deleteDepartment(departmentName);
+        return ResponseEntity.status(HttpStatus.OK).body("Department " + departmentName + " was successfully deleted");
     }
 }

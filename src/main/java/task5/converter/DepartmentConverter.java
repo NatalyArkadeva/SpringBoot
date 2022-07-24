@@ -13,14 +13,14 @@ public class DepartmentConverter {
     @Autowired
     private PersonConverter personConverter;
 
-    public DepartmentDto departmentToDto(Department department){
+    public DepartmentDto departmentToDto(Department department) {
         DepartmentDto departmentDto = new DepartmentDto();
         departmentDto.setName(department.getDepartmentName());
-        departmentDto.setPersons(personConverter.responsePersonToDto(department.getPersons()));
+        departmentDto.setCountPerson(department.getCountPerson());
         return departmentDto;
     }
 
-    public List<DepartmentDto> departmentToDto(List<Department> departments){
+    public List<DepartmentDto> departmentToDto(List<Department> departments) {
         return departments.stream()
                 .map(department -> departmentToDto(department))
                 .collect(Collectors.toList());

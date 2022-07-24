@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: Nataly
+      changes:
+        - addColumn:
+            tableName: department
+            columns:
+              - column:
+                  name: build
+                  type: int
+              - column:
+                  name: count_person
+                  type: int
+
+
+
+

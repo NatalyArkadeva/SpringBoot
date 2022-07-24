@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9
+      author: Nataly
+      changes:
+        - dropNotNullConstraint:
+            columnDataType: int
+            columnName: department_id
+            tableName: person
+
+
+
+
+

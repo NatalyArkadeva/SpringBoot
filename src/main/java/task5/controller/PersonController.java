@@ -1,14 +1,16 @@
 package task5.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import task5.converter.PersonConverter;
 import task5.dto.RequestPersonDto;
+import task5.dto.ResponsePersonDto;
 import task5.entity.Person;
 import task5.services.PersonServiceImp;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -18,11 +20,6 @@ import java.util.List;
 public class PersonController {
     private final PersonServiceImp personService;
     private final PersonConverter personConverter;
-
-    @GetMapping("/")
-    public String greeting() {
-        return "Hello, World";
-    }
 
     @GetMapping("/name/{name}")
     public Person getPerson(@PathVariable String name) {
@@ -35,19 +32,21 @@ public class PersonController {
     }
 
     @PutMapping("/name_id/{id}")
-    public Person replacePersonAge(@PathVariable Integer id, @RequestParam LocalDate birthday) {
+    public ResponseEntity changePersonBirthday(@PathVariable Integer id, @RequestParam LocalDate birthday) {
         personService.getPersonById(id).setBirthday(birthday);
-        return personService.save(personService.getPersonById(id));
+        personService.save(personService.getPersonById(id));
+        return ResponseEntity.status(HttpStatus.OK).body("Birthday was successfully changed");
     }
 
     @DeleteMapping("/name/{id}")
-    public void deletePerson(@PathVariable int id) {
+    public ResponseEntity deletePerson(@PathVariable int id) {
         personService.deletePersonById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Person with id " + id + " was successfully deleted");
     }
 
     @GetMapping("/person/name/age/{name}/{birthday}")
-    public Person getPersonByNameAge(@PathVariable String name, @PathVariable LocalDate birthday) {
-        return personService.getPersonByNameAndBirthday(name, birthday);
+    public ResponsePersonDto getPersonByNameAge(@PathVariable String name, @PathVariable LocalDate birthday) {
+        return personConverter.responsePersonToDto(personService.getPersonByNameAndBirthday(name, birthday));
     }
 
     @GetMapping("/person/name/{age}")
@@ -56,8 +55,9 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public Person addNewPerson(@RequestBody Person person) {
-        return personService.save(person);
+    public ResponseEntity addNewPerson(@RequestBody Person person) {
+        personService.save(person);
+        return ResponseEntity.status(HttpStatus.OK).body("Person was successfully saved");
     }
 
     @GetMapping("/person/age/{age}")
@@ -67,7 +67,8 @@ public class PersonController {
     }
 
     @PostMapping("/persons")
-    public List<Person> addAllNewPerson(@Validated @RequestBody List<Person> person) {
-        return personService.saveAll(person);
+    public ResponseEntity addAllNewPerson(@RequestBody List<Person> person) {
+        personService.saveAll(person);
+        return ResponseEntity.status(HttpStatus.OK).body("All persons was successfully saved");
     }
 }

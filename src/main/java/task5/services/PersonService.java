@@ -1,6 +1,5 @@
 package task5.services;
 
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import task5.entity.Person;
 
 import java.time.LocalDate;

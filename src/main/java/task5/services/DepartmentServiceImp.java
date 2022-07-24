@@ -23,46 +23,51 @@ public class DepartmentServiceImp implements DepartmentService {
         return departmentRepository.findAll();
     }
 
+    public Department getDepartment(int id) {
+        return departmentRepository.findById(id).orElseThrow(() -> new EntityException(ExceptionMessage.DEPARTMENT_NOT_FOUND));
+    }
+
     public void addNewDepartment(Department department) {
         util.throwExceptionIfNameIncorrect(department.getDepartmentName());
+        util.throwExceptionIfDepartmentAlreadyExists(department.getDepartmentName());
         departmentRepository.save(department);
     }
 
-    public Department addPersonToDepartment(String departmentName, String personName, String personSurname) {
+    public void addPersonToDepartment(String departmentName, String personName, String personSurname) {
         util.throwExceptionIfNameIncorrect(departmentName);
         Person person = personRepository.findByNameAndSurname(personName, personSurname)
                 .orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
         Department department = departmentRepository.findByDepartmentName(departmentName)
                 .orElseThrow(() -> new EntityException(ExceptionMessage.DEPARTMENT_NOT_FOUND));
-        department.addPersonToDepartment(person);
-        return department;
+        person.addPersonToDepartment(department);
+        personRepository.save(person);
+        departmentRepository.save(department);
     }
 
-    public Department deletePersonFromDepartment(String departmentName, String personName, String personSurname) {
+    public void deletePersonFromDepartment(String departmentName, String personName, String personSurname) {
         util.throwExceptionIfNameIncorrect(departmentName);
         Person person = personRepository.findByNameAndSurname(personName, personSurname)
                 .orElseThrow(() -> new EntityException(ExceptionMessage.PERSON_NOT_FOUND));
         Department department = departmentRepository.findByDepartmentName(departmentName)
                 .orElseThrow(() -> new EntityException(ExceptionMessage.DEPARTMENT_NOT_FOUND));
-        if (department.getPersons().contains(person)) {
-            department.getPersons().remove(person);
-            person.setDepartment(null);
+        if (person.getDepartment().getId() == department.getId()) {
+            person.deletePersonFromDepartment(department);
         } else {
             throw new EntityException(ExceptionMessage.PERSON_NOT_FOUND_IN_DEPARTMENT);
         }
-        return department;
+        personRepository.save(person);
+        departmentRepository.save(department);
     }
 
     public void deleteDepartment(String departmentName) {
         util.throwExceptionIfNameIncorrect(departmentName);
         Department department = departmentRepository.findByDepartmentName(departmentName)
                 .orElseThrow(() -> new EntityException(ExceptionMessage.DEPARTMENT_NOT_FOUND));
-        department.getPersons().stream()
+        List<Person> persons = personRepository.findAll();
+        persons.stream()
+                .filter(person -> person.getDepartment().getId() == department.getId())
                 .forEach(person -> person.setDepartment(null));
+        personRepository.saveAll(persons);
         departmentRepository.delete(department);
-    }
-
-    public Department save(Department department) {
-        return departmentRepository.save(department);
     }
 }

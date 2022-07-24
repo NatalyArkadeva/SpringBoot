@@ -4,6 +4,7 @@ public enum ExceptionMessage {
     PERSON_NOT_FOUND("Пользователь не найден"),
     INCORRECT_DATA("Передан некорректный запрос"),
     DEPARTMENT_NOT_FOUND("Отдел не найден"),
+    DEPARTMENT_ALREADY_EXISTS("Отдел уже существует"),
     PERSON_NOT_FOUND_IN_DEPARTMENT("Пользователь не найден в отделе"),
     INCORRECT_MOBILE("Номер телефона не соответствует допустимому формату"),
     INCORRECT_PASSWORD("Пароль не соответствует допустимому формату"),
