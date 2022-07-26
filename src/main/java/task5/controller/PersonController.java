@@ -3,7 +3,6 @@ package task5.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import task5.converter.PersonConverter;
 import task5.dto.RequestPersonDto;
@@ -11,10 +10,10 @@ import task5.dto.ResponsePersonDto;
 import task5.entity.Person;
 import task5.services.PersonServiceImp;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-@Validated
 @RestController
 @RequiredArgsConstructor
 public class PersonController {
@@ -55,7 +54,7 @@ public class PersonController {
     }
 
     @PostMapping("/person")
-    public ResponseEntity addNewPerson(@RequestBody Person person) {
+    public ResponseEntity addNewPerson(@RequestBody @Valid Person person) {
         personService.save(person);
         return ResponseEntity.status(HttpStatus.OK).body("Person was successfully saved");
     }
@@ -67,7 +66,7 @@ public class PersonController {
     }
 
     @PostMapping("/persons")
-    public ResponseEntity addAllNewPerson(@RequestBody List<Person> person) {
+    public ResponseEntity addAllNewPerson(@RequestBody @Valid List<Person> person) {
         personService.saveAll(person);
         return ResponseEntity.status(HttpStatus.OK).body("All persons was successfully saved");
     }

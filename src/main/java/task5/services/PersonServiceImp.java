@@ -3,7 +3,6 @@ package task5.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import task5.entity.Person;
 import task5.exception.EntityException;
 import task5.exception.ExceptionMessage;
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Validated
 @Service
 @RequiredArgsConstructor
 public class PersonServiceImp implements PersonService {
@@ -47,6 +45,7 @@ public class PersonServiceImp implements PersonService {
 
     @Override
     public Person save(Person person) {
+
         return personRepository.save(person);
     }
 

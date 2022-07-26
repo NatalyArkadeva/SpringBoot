@@ -11,12 +11,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import task5.Application;
 import task5.controller.PersonController;
 import task5.converter.PersonConverter;
+import task5.entity.Passport;
+import task5.entity.Person;
 import task5.exception.EntityException;
 import task5.repository.DepartmentRepository;
 import task5.repository.PersonRepository;
 import task5.services.PersonServiceImp;
 import task5.util.UtilTest;
 
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -174,5 +177,21 @@ public class PersonControllerTest {
                 .andExpect(result -> assertEquals("Henry", personRepository.findByName(person.getName()).get().getName()));
 
 //        assertEquals("Henry", personRepository.findByName(person.getName()).get().getName());
+    }
+
+    @Test
+    public void addNewInvalidPersonTest() throws Exception {
+        Person person = new Person("Ron", "123", "456", LocalDate.of(2009, 12, 25), "qwerty",
+                new Passport("1234", "123456", LocalDate.of(2007, 4, 25)));
+        this.mockMvc.perform(
+                        post("/person")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)
+                                .content(this.mapper.writeValueAsString(person)))
+                .andExpect(status().is4xxClientError());
+
+        assertThrows(ConstraintViolationException.class, () -> {
+            personController.addNewPerson(person);
+        });
     }
 }

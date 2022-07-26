@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,27 +20,31 @@ public class EntityExceptionHandler {
         return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler
-//    public ResponseEntity<EntityIncorrectData> handleException(Exception exception) {
-//        EntityIncorrectData data = new EntityIncorrectData();
-//        data.setMessage(ExceptionMessage.INCORRECT_DATA.getMessage());
-//        return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler
+    public ResponseEntity<EntityIncorrectData> handleException(Exception exception) {
+        EntityIncorrectData data = new EntityIncorrectData();
+        data.setMessage(ExceptionMessage.INCORRECT_DATA.getMessage());
+        return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidException(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
-            errors.put(fieldName, error.getDefaultMessage());
-//            if(fieldName.equals("mobile")){
-//                errors.put(fieldName, ExceptionMessage.INCORRECT_MOBILE.getMessage());
-//            } else if(fieldName.equals("password")){
-//                errors.put(fieldName, ExceptionMessage.INCORRECT_PASSWORD.getMessage());
-//            } else if(fieldName.equals("birthday")){
-//                errors.put(fieldName, ExceptionMessage.INCORRECT_BIRTHDAY.getMessage());
-//            } else errors.put(fieldName, error.getDefaultMessage());
+            if(fieldName.equals("mobile")){
+                errors.put(fieldName, ExceptionMessage.INCORRECT_MOBILE.getMessage());
+            } else if(fieldName.equals("password")){
+                errors.put(fieldName, ExceptionMessage.INCORRECT_PASSWORD.getMessage());
+            } else if(fieldName.equals("birthday")){
+                errors.put(fieldName, ExceptionMessage.INCORRECT_BIRTHDAY.getMessage());
+            } else errors.put(fieldName, error.getDefaultMessage());
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleConstraintViolationException() {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
