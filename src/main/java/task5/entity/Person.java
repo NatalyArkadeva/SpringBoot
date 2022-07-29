@@ -3,6 +3,9 @@ package task5.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
@@ -13,6 +16,7 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotBlank(message = "Не указано имя")
     private String name;
     //    @Pattern(regexp = "(19)[\\d]{2}-(0[1-9])|(1[0-2])-(01)|([1-2][0-9])|(3[0-1])", message = "Представителям поколения Z регистрация недоступна")
     private LocalDate birthday;
@@ -22,6 +26,8 @@ public class Person {
     private LocalDate creationDate;
     @Pattern(regexp = "[A-Z0-9]{8,10}", message = "Пароль не соответствует допустимому формату")
     private String password;
+    @NotNull
+    @Valid
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "passport_id")
     private Passport passport;
@@ -39,6 +45,14 @@ public class Person {
         this.name = name;
         this.birthday = birthday;
         this.surname = surname;
+        this.passport = passport;
+    }
+
+    public Person(String name, LocalDate birthday, String surname, String patronymic, Passport passport) {
+        this.name = name;
+        this.birthday = birthday;
+        this.surname = surname;
+        this.patronymic = patronymic;
         this.passport = passport;
     }
 

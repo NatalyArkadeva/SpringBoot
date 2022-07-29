@@ -47,13 +47,13 @@ public class UtilTest {
         Department department2 = new Department("Department of Magical Transportation", 2);
 
         Person person1 = new Person("Henry", LocalDate.of(1987, 6, 25),
-                "Ivanov", passport1);
+                "Ivanov", "qwerty", passport1);
         person1.addPersonToDepartment(department1);
         Person person2 = new Person("Harry", LocalDate.of(1987, 7, 15),
                 "Potter", passport2);
         person2.addPersonToDepartment(department2);
         Person person3 = new Person("Helen", LocalDate.of(1999, 4, 25),
-                "Gold", passport3);
+                "Gold", "werty", passport3);
         person3.addPersonToDepartment(department2);
         departmentRepository.saveAll(List.of(department1, department2));
         return personRepository.saveAll(List.of(person1, person2, person3));

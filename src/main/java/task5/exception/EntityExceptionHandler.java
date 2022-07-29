@@ -32,13 +32,7 @@ public class EntityExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         exception.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
-            if(fieldName.equals("mobile")){
-                errors.put(fieldName, ExceptionMessage.INCORRECT_MOBILE.getMessage());
-            } else if(fieldName.equals("password")){
-                errors.put(fieldName, ExceptionMessage.INCORRECT_PASSWORD.getMessage());
-            } else if(fieldName.equals("birthday")){
-                errors.put(fieldName, ExceptionMessage.INCORRECT_BIRTHDAY.getMessage());
-            } else errors.put(fieldName, error.getDefaultMessage());
+            errors.put(fieldName, error.getDefaultMessage());
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }

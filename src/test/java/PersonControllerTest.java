@@ -181,8 +181,8 @@ public class PersonControllerTest {
 
     @Test
     public void addNewInvalidPersonTest() throws Exception {
-        Person person = new Person("Ron", "123", "456", LocalDate.of(2009, 12, 25), "qwerty",
-                new Passport("1234", "123456", LocalDate.of(2007, 4, 25)));
+        Person person = new Person(" ", "123", "456", LocalDate.of(2009, 12, 25), "qwerty",
+                new Passport("123", "12W456", LocalDate.of(2007, 4, 25)));
         this.mockMvc.perform(
                         post("/person")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -194,4 +194,5 @@ public class PersonControllerTest {
             personController.addNewPerson(person);
         });
     }
+
 }
