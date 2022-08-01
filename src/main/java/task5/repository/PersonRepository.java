@@ -19,5 +19,5 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     Optional<Person> findByNameAndSurname(String name, String surname);
 
     @Query(value = " select p from Person p where p.patronymic is null")
-    List<Person> findAllPerson();
+    List<Person> findAllPersonWithoutPatronymic();
 }
