@@ -1,6 +1,7 @@
 package task5.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,11 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
-//@Validated
+@Log
 @RestController
 @RequiredArgsConstructor
 public class PersonController {
+
     private final PersonServiceImp personService;
     private final PersonConverter personConverter;
 
@@ -51,6 +53,7 @@ public class PersonController {
 
     @GetMapping("/person/name/{age}")
     public List<Person> getAllPersonByAge(@PathVariable int age) {
+        log.info("Количество записей " + personService.getAllPersonByAge(age).size());
         return personService.getAllPersonByAge(age);
     }
 
@@ -63,6 +66,7 @@ public class PersonController {
     @GetMapping("/person/age/{age}")
     public List<RequestPersonDto> getAllPersonOlderSomeAge(@PathVariable int age) {
         List<Person> personList = personService.getAllPersonOlderSomeAge(age);
+        log.info("Количество записей " + personList.size());
         return personConverter.entityToDto(personList);
     }
 
