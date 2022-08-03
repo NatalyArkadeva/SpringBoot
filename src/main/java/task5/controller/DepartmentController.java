@@ -1,6 +1,8 @@
 package task5.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +13,7 @@ import task5.services.DepartmentService;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class DepartmentController {
@@ -19,6 +22,8 @@ public class DepartmentController {
 
     @GetMapping("/department")
     public List<DepartmentDto> getAllDepartment(){
+        log.debug("Количество записей " + departmentService.getAllDepartment().size());
+        log.info("Количество записей " + departmentService.getAllDepartment().size());
         return departmentConverter.departmentToDto(departmentService.getAllDepartment());
     }
 
